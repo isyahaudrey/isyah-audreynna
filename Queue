@@ -1,0 +1,92 @@
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+// Deklarasi struktur data pembeli
+struct Pembeli {
+  string idPembeli;
+};
+
+int main() {
+  // Deklarasi queue pembeli
+  queue<Pembeli> antrianPembeli;
+
+  // Menampilkan menu
+  int pilihan;
+  do {
+    cout << "\n\n*Antrian Pembelian Tiket Konser Musik*\n";
+    cout << "1. Tambah Pembeli ke Antrian\n";
+    cout << "2. Hapus Pembeli dari Antrian\n";
+    cout << "3. Lihat Pembeli Depan Antrian\n";
+    cout << "4. Lihat Semua Pembeli Antri\n";
+    cout << "5. Lihat Jumlah Pembeli Antri\n";
+    cout << "0. Keluar\n";
+    cout << "Masukkan pilihan: ";
+    cin >> pilihan;
+
+    switch (pilihan) {
+      case 1:
+        // Menambahkan pembeli ke antrian
+        Pembeli pembeliBaru;
+        cout << "\nMasukkan ID pembeli: ";
+        cin >> pembeliBaru.idPembeli;
+
+        antrianPembeli.push(pembeliBaru);
+        cout << "\nPembeli dengan ID " << pembeliBaru.idPembeli << " telah ditambahkan ke antrian.\n";
+        break;
+
+      case 2:
+        // Menghapus pembeli dari antrian
+        if (!antrianPembeli.empty()) {
+          Pembeli pembeliDihapus = antrianPembeli.front();
+          antrianPembeli.pop();
+
+          cout << "\nPembeli dengan ID " << pembeliDihapus.idPembeli << " telah dihapus dari antrian.\n";
+        } else {
+          cout << "\nAntrian pembeli kosong.\n";
+        }
+        break;
+
+      case 3:
+        // Menampilkan pembeli depan antrian
+        if (!antrianPembeli.empty()) {
+          Pembeli pembeliDepan = antrianPembeli.front();
+          cout << "\nPembeli depan antrian: " << pembeliDepan.idPembeli << "\n";
+        } else {
+          cout << "\nAntrian pembeli kosong.\n";
+        }
+        break;
+
+      case 4:
+        // Menampilkan semua pembeli antri
+        if (!antrianPembeli.empty()) {
+          cout << "\nDaftar pembeli antri:\n";
+          int i = 1;
+          while (!antrianPembeli.empty()) {
+            Pembeli pembeliAntri = antrianPembeli.front();
+            cout << i << ". " << pembeliAntri.idPembeli << "\n";
+            antrianPembeli.pop();
+            i++;
+          }
+        } else {
+          cout << "\nAntrian pembeli kosong.\n";
+        }
+        break;
+
+      case 5:
+        // Menampilkan jumlah pembeli antri
+        cout << "\nJumlah pembeli antri: " << antrianPembeli.size() << "\n";
+        break;
+
+      case 0:
+        cout << "\nKeluar dari program.\n";
+        break;
+
+      default:
+        cout << "\nPilihan tidak valid.\n";
+    }
+  } while (pilihan != 0);
+
+  return 0;
+}
